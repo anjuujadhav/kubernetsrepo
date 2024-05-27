@@ -1,9 +1,9 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: ReplicaSet 
 metadata:
   name: my-rs
 spec: 
-  replicas: 3
+  replicas: 10
   selector:
     matchExpressions:
       - key: "app"
@@ -20,5 +20,4 @@ spec:
         ports:
           - name: http
             protocol: TCP
-            containerPort: 80
-            
+            containerPort: 80 

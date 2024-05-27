@@ -1,5 +1,6 @@
 aws eks update-kubeconfig --region us-east-1 --name my-cluster 
-  
+
+
 kubectl cluster-info 
 
 kubectl get nodes 
@@ -26,7 +27,7 @@ kubectl expose pod my-first-pod --port=80 --type=clusterIP
 
 kubectl get service 
 
-kubectl expose pod my-first-pod --port=80 --target-port=80 --type=NodePor 
+kubectl expose pod my-first-pod --port=80 --target-port=80 --type=NodePort 
 
 kubectl expose pod my-pod --name my-pod-lb --type=LoadBalancer --port=80 --target-port=80 
 
@@ -39,6 +40,14 @@ kubectl api-resources
 kubectl delete pod my-pod 
 
 ---------------------------------------------------------
+kubectl get rc 
+
+kubectl get pods 
+
+kubectl get -o wide pods 
+
+kubectl delete rc 
+------------------------------------------------------------------------
 kubectl get namespaces 
 
 kubectl get ns
@@ -56,9 +65,7 @@ kubectl get pods -n dev
 kubectl run my-pod --image=nginx -n dev 
 
 kubectl apply -f <manifest-file.yaml> -n <namespace-name>
-
 -------------------------------------------------------------------------
-
 kubectl get deploy 
 
 kubectl get pods 
@@ -74,23 +81,93 @@ kubectl edit deploy my-deployment
 kubectl api-resources  
 
 kubectl scale statefulset my-ss --replicas 2 
-
 --------------------------------------------------------------------
-
 kubectl get configmap 
+
+kubectl get cm 
 
 kubectl describe configmap my-vars 
 
 kubectl exec -it my-ss-0 -- bash 
 
 env 
-
 ------------------------------------------------- 
-
 echo -n "Redhat" | base64 
 
 kubectl get secret 
 
 kubectl describe secret my-sec 
+-----------------------------------------------------------
+mysql -h <endpoint of db> -u admin -pAdmin123 
+-------------------------------------------------------------------------
+
+docker push piyu5233/project:studentapp 
+
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+kubectl get pods -n kube-system 
+
+kubectl top pod <pod_name> #for pods 
+
+kubectl top node #for nodes 
+
+kubectl get hpa -o wide 
+
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY*
+
+yum -y install epel-release
+
+yum -y update
+
+yum install stress 
+
+---------------------------------------------------------------------
+
+kubectl get ingress <ingress_name> 
+
+kubectl edit ingress <ingress_name> 
+
+--------------------------------------------------------------------------------------
+#how to create k8s cluster 
+
+eks (elastic kubernetes service)
+gke (google kubernetes service) 
+aks (azure kubernetes service)
+
+minikube (for practice purpose on local machine )
+
+kubeadm (for big cluster on premises )
+
+kind is a tool for running local Kubernetes clusters using Docker container “nodes”. was primarily designed for testing Kubernetes itself,
+ but may be used for local development or CI. 
+
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.23.0/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind 
+
+kind --version 
+
+sudo dnf install docker -y 
+
+systemctl start docker 
+
+kind create cluster 
+
+---------------------------------------------------------------------
+
+#to download kubectl 
+
+sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" 
+
+sudo chmod +x kubectl 
+
+sudo mv kubectl /usr/local/bin/ 
+
+kubectl version 
 
 
+kubectl cluster-info 
+
+kind create cluster --name kind-2 #to create multi node cluster 
+
+kind create cluster --name my-cluster --config config.yaml
